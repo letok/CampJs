@@ -35,11 +35,11 @@ var trombine= new Trombine('localhost', 27017);
 
 // Routes
 app.get('/', function(req, res){
-  
+  /*
   trombine.save({
     name: "My test name"
   }, function( error, docs) {});
-
+*/
   /*
   trombine.remove(function(error){
   	res.render('error');
@@ -55,15 +55,34 @@ app.get('/', function(req, res){
 });
 
 app.post('/trombine/new', function(req, res){
-	trombine.save({
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	console.log(req.body);
+
+	trombine.save(
+		req.body
+	/*{
         name: req.param('name'),
         occupation: req.param('occupation'),
         company: req.param('company'),
-        twitter: req.param('twitter')/*,
-        photoBlob: req.param('photoBlob')*/
-    }, function( error, docs) {
-        res.redirect('/')
+        twitter: req.param('twitter'),
+        photoBlob: req.param('photoBlob')
+    }*/
+    , function( error, docs) {
+        res.send(200, 'OK');
     });
+});
+
+app.get('/trombine/list', function(req, res){
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	trombine.findAll(function(error, trombines){
+      res.json(trombines);
+  });
+});
+
+app.options('/*', function(req, res){
+	res.setHeader("Access-Control-Allow-Origin", "*");
+	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.send(200, true);
 });
 
 http.createServer(app).listen(app.get('port'), function(){

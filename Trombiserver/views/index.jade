@@ -5,5 +5,9 @@ block content
     #trombines
         - each trombine in trombines
           div.trombine
-            div.created_at= trombine.created_at
             div.name= trombine.name
+            div.occupation= trombine.occupation
+            div.company= trombine.company
+            div.twitter= trombine.twitter
+            img(src=trombine.photoBlob)
+            div --------------------------------

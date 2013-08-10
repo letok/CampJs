@@ -22,7 +22,7 @@ Trombine.prototype.findAll = function(callback) {
     this.getCollection(function(error, trombine_collection) {
       if( error ) callback(error)
       else {
-        trombine_collection.find().toArray(function(error, results) {
+        trombine_collection.find().sort({name: 1}).toArray(function(error, results) {
           if( error ) callback(error)
           else callback(null, results)
         });
@@ -35,7 +35,7 @@ Trombine.prototype.remove = function(callback) {
     this.getCollection(function(error, trombine_collection) {
       if( error ) callback(error)
       else {
-        trombine_collection.remove({name: "My test name"});
+        trombine_collection.remove({});
       }
     });  
 };
