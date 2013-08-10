@@ -1,53 +1,22 @@
 <!doctype html>
-<html lang="en-GB" ng-app>
+<html lang="en-GB" ng-app="tromb">
 	<head>
 		<title>Test app</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta charset='utf-8'>
 
-		<style>
-h1, h2, h3 {
-	margin: 0;
-	padding: 0;
-}
-
-body {
-	font-family: Helvetica, Arial, sans-serif;
-	margin: 0;
-	padding: 15px;
-}
-
-.people-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.people-list > li {
-    float: left;
-    width: 100%;
-    max-width: 300px;
-    margin: 0 5% 5% 0;
-    background: #ddd;
-}
-.people-list ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.people-list img {
-	max-height: 100px;
-}
-		</style>
+		<link rel="stylesheet" type="text/css" href="tromb.css"> 
 
 		<script src="angular.min.js"></script>
 		<script src="people.js"></script>
 	</head>
 	<body>
-		<h1>Hello!</h1>
+		<h1>People</h1>
 
 		<div id="people" ng-controller="PeopleCtrl">
 			<form ng-submit="addPerson()">
-				<input type="text" ng-model="photo">
-				<input type="button" ng-click="pickPhoto()">
+				<input type="hidden" ng-model="photo">
+				<input type="hidden" ng-model="photoBlob">
+				<input type="button" ng-click="pickPhoto()" value="Pick photo">
 
 				<input type="text" ng-model="name" placeholder="Name">
 				<input type="text" ng-model="occupation" placeholder="Occupation">
