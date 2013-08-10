@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en-GB" ng-app>
+	<head>
+		<title>Test app</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<style>
+			body { font-family: Helvetica, Arial, sans-serif }
+		</style>
+
+		<script src="angular.min.js"></script>
+		<script src="people.js"></script>
+	</head>
+	<body>
+		<h1>Hello!</h1>
+
+		<input type="text" ng-model="yourName" placeholder="Enter a name here">
+		<p>Hello {{yourName}}!</p>
+
+		<div ng-controller="PeopleCtrl">
+			<ul class="people-list">
+				<li ng-repeat="person in people">
+					<h3>{{person.name}}</h3>
+				</li>
+			</ul>
+		</div>
+
+	</body>
+</html>
