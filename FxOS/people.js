@@ -121,17 +121,26 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			//var imagePresenter = document.querySelector("body");
 			//imagePresenter.appendChild(img);
 
-			var reader = new FileReader();
-			reader.readAsDataURL(this.result.blob);
-			reader.onload = function(event) {
-				//console.log(event.target.result);
-				$scope.photoBlob = event.target.result;
-				$scope.$apply();
-			};
-			//console.log(window.btoa(this.result.blob));
-
 			console.log($scope.people[0].name);
 			$scope.photo = window.URL.createObjectURL(this.result.blob);
+
+			var img = new Image();
+			img.src = $scope.photo;
+			img.onload = function() {
+				var resized = resizeMe(img);
+				//console.log(resized);
+				$scope.photoBlob = resized;
+				$scope.$apply();
+			};
+
+			//var reader = new FileReader();
+			//reader.readAsDataURL(this.result.blob);
+			//reader.onload = function(event) {
+				//console.log(event.target.result);
+				//$scope.photoBlob = event.target.result;
+			//	$scope.$apply();
+			//};
+			//console.log(window.btoa(this.result.blob));
 
 			//$scope.photoBlob = window.btoa(this.result.blob);
 			//$scope.name = 'Ok';
@@ -143,3 +152,42 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		};
 	};
 });
+
+
+
+
+function resizeMe(img) {
+  
+  var canvas = document.createElement('canvas');
+
+  var width = img.width;
+  var height = img.height;
+  var max_width = 200;
+  var max_height = 200;
+
+  // calculate the width and height, constraining the proportions
+  if (width > height) {
+    if (width > max_width) {
+      //height *= max_width / width;
+      height = Math.round(height *= max_width / width);
+      width = max_width;
+    }
+  } else {
+    if (height > max_height) {
+      //width *= max_height / height;
+      width = Math.round(width *= max_height / height);
+      height = max_height;
+    }
+  }
+  
+  // resize the canvas and draw the image data into it
+  canvas.width = width;
+  canvas.height = height;
+  var ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, width, height);
+  
+  //preview.appendChild(canvas); // do the actual resized preview
+  
+  return canvas.toDataURL("image/jpeg",0.7); // get the data from canvas as 70% JPG (can be also PNG, etc.)
+
+}
