@@ -15,13 +15,12 @@
 		<div id="people" ng-controller="PeopleCtrl">
 			<form ng-submit="addPerson()">
 				<input type="hidden" ng-model="photo">
-				<input type="hidden" ng-model="photoBlob">
 				<input type="button" ng-click="pickPhoto()" value="Pick photo">
 
 				<input type="text" ng-model="name" placeholder="Name">
 				<input type="text" ng-model="occupation" placeholder="Occupation">
 				<input type="text" ng-model="company" placeholder="Company">
-				<input type="text" ng-model="twitterHandle" placeholder="Twitter name">
+				<input type="text" ng-model="twitter" placeholder="Twitter name">
 				<input type="submit" value="Add">
 			</form>
 
@@ -32,7 +31,7 @@
 					<ul>
 						<li>Occupation: {{person.occupation}}</li>
 						<li>Company: {{person.company}}</li>
-						<li>Twitter: {{person.twitterHandle}}</li>
+						<li>Twitter: {{person.twitter}}</li>
 					</ul>
 				</li>
 			</ul>
