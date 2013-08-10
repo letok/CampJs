@@ -5,9 +5,29 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 	//$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
 	$scope.people = [
-		{ name: 'Bob', occupation: 'Web dev', company: 'Comp1', twitter: 'Bob111', photo: "blob:b21ed2f5-e600-414a-91c1-53f68169f031" },
-		{ name: 'John', occupation: 'Web dev', company: 'Comp2', twitter: 'JohnXXX', photo: "blob:eb1b20d8-c2fa-2e46-9e50-7f143bb362c6" }
+		//{ name: 'Bob', occupation: 'Web dev', company: 'Comp1', twitter: 'Bob111', photo: "blob:b21ed2f5-e600-414a-91c1-53f68169f031" },
+		//{ name: 'John', occupation: 'Web dev', company: 'Comp2', twitter: 'JohnXXX', photo: "blob:eb1b20d8-c2fa-2e46-9e50-7f143bb362c6" }
 	];
+
+	$scope.fetchList = function() {
+		console.log('fetchList...');
+		$scope.message = 'Fetching list of people...';
+
+		$http({
+			method: 'GET',
+			url: 'http://192.168.88.203:3000/trombine/list'
+		})
+		.success(function(data, status) {
+			$scope.people = data;
+			$scope.message = undefined;
+		})
+		.error(function(data, status) {
+			console.log('... error');
+			$scope.message = 'Error: ' + status + ' ' + data;
+		});
+	};
+
+	$scope.fetchList();
 
 	$scope.addPerson = function() {
 		//$scope.addPersonComplete();
