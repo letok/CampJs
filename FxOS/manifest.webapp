@@ -1,6 +1,7 @@
 {
-	"name": "Bananas",
+	"version": "1",
+	"name": "Trombinoscope",
 	"description": "Hello",
-	"launch_path": "/index.html"
-
+	"launch_path": "/index.html",
+	"default_locale": "en"
 }
