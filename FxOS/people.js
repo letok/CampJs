@@ -18,6 +18,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			url: 'http://192.168.88.203:3000/trombine/list'
 		})
 		.success(function(data, status) {
+			console.log('... done');
 			$scope.people = data;
 			$scope.message = undefined;
 		})
@@ -31,6 +32,8 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 
 	$scope.addPerson = function() {
 		//$scope.addPersonComplete();
+		//window.btoa($scope.photoBlob);
+		//console.log('nope');
 		//return;
 
 		var obj = {
@@ -118,13 +121,21 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			//var imagePresenter = document.querySelector("body");
 			//imagePresenter.appendChild(img);
 
-			console.log(window.URL.createObjectURL(this.result.blob));
+			var reader = new FileReader();
+			reader.readAsDataURL(this.result.blob);
+			reader.onload = function(event) {
+				//console.log(event.target.result);
+				$scope.photoBlob = event.target.result;
+				$scope.$apply();
+			};
+			//console.log(window.btoa(this.result.blob));
 
 			console.log($scope.people[0].name);
 			$scope.photo = window.URL.createObjectURL(this.result.blob);
-			$scope.photoBlob = this.result.blob;
+
+			//$scope.photoBlob = window.btoa(this.result.blob);
 			//$scope.name = 'Ok';
-			$scope.$apply();
+			//$scope.$apply();
 		};
 
 		pick.onerror = function () { 
