@@ -1,7 +1,74 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 a {
   color: #00B7FF;
+}
+#wrapper {
+  width: 95%;
+  margin: 50px auto;
+}
+.tiles {
+  padding: 0;
+  margin-left: -15px;
+  margin-bottom: -30px;
+}
+.tile {
+  background: #FEFEFE;
+  box-shadow: 0 2px 5px rgba(34, 25, 25, 0.4);
+  margin: 5px 1% 15px 1%;
+  margin-bottom: 15px;
+  -webkit-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  column-break-inside: avoid;
+  background: -webkit-linear-gradient(45deg, #ffffff, #f9f9f9);
+  padding: 15px;
+  opacity: 1;
+  list-style: none;
+  -webkit-transition: opacity 1s ease;
+  -moz-transition: opacity 1s ease;
+  -o-transition: opacity 1s ease;
+  transition: opacity 1s ease;
+  width: 190px;
+  margin: 0 15px 30px;
+}
+.tile:hover {
+  opacity: 0.8;
+}
+.photo {
+  text-align: center;
+}
+.photo img {
+  max-width: 100%;
+}
+.tile ul {
+  margin: 0;
+  padding: 0;
+}
+.tile ul li {
+  font: 12px/18px Arial, sans-serif;
+  color: #333;
+  margin: 0;
+  list-style: none;
+  padding-left: 30px;
+  margin-bottom: 5px;
+  line-height: 24px;
+}
+.tile ul li.photo {
+  padding-left: 0;
+}
+.tile ul li.name {
+  background: url(../images/User-24.png) no-repeat;
+}
+.tile ul li.location {
+  background: url(../images/Map-24.png) no-repeat;
+}
+.tile ul li.occupation {
+  background: url(../images/ruler_pencil-24.png) no-repeat;
+}
+.tile ul li.company {
+  background: url(../images/friends-24.png) no-repeat;
+}
+.tile ul li.twitter {
+  background: url(../images/twitter-circle-24.png) no-repeat;
 }

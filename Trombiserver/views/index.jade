@@ -1,13 +1,17 @@
 extends layout
 
 block content
-  h1= title
-    #trombines
-        - each trombine in trombines
-          div.trombine
-            div.name= trombine.name
-            div.occupation= trombine.occupation
-            div.company= trombine.company
-            div.twitter= trombine.twitter
-            img(src=trombine.photoBlob)
-            div --------------------------------
+	div#wrapper
+		h1= title
+		ul.tiles.js-masonry
+			- each trombine in trombines
+				li.tile
+					ul
+						li.photo
+							img(src=trombine.photoBlob)
+						li.name= trombine.name
+						li.location= trombine.location
+						li.occupation= trombine.occupation
+						li.company= trombine.company
+						li.twitter
+							a(href="http://twitter.com/" + trombine.twitter)= trombine.twitter
