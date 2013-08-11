@@ -11,12 +11,13 @@
 	</head>
 	<body>
 		<h1>People</h1>
-		<div id="message">{{ message }}</div>
+		<div id="message">Message: {{ message }}</div>
 
 		<div id="people" ng-controller="PeopleCtrl">
 			<form ng-submit="addPerson()">
-				<input type="hidden" ng-model="photo">
-				<input type="button" ng-click="pickPhoto()" value="Pick photo">
+				<!-- Show or hide native picker or file uploader -->
+				<input type="button" ng-click="pickPhoto()" ng-show="features.mozActivity" value="Pick photo">
+				<input type="file" ng-show="features.fileApi" onchange="angular.element(this).scope().fileChanged(this)">
 
 				<input type="text" ng-model="name" placeholder="Name">
 				<input type="text" ng-model="occupation" placeholder="Occupation">
