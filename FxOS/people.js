@@ -2,7 +2,6 @@
 var tromb = angular.module('tromb', []);
 
 tromb.controller('PeopleCtrl', function($scope, $http) {
-	//$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
 	$scope.features = {
 		mozActivity: false,
@@ -26,19 +25,20 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 
 	$scope.fetchList = function() {
 		console.log('fetchList...');
-		$scope.message = 'Fetching list of people...';
+		$scope.message = 'Fetching list of people from server (may need to refresh if network is too flaky)...';
 
 		$http({
 			method: 'GET',
 			url: 'http://192.168.88.203:3000/trombine/list'
+			//url: 'http://127.0.0.1:3000/trombine/list'
 		})
 		.success(function(data, status) {
-			console.log('... done');
+			console.log('fetchList done');
 			$scope.people = data;
 			$scope.message = undefined;
 		})
 		.error(function(data, status) {
-			console.log('... error');
+			console.log('fetchList error');
 			$scope.message = 'Error: ' + status + ' ' + data;
 			//$scope.$apply();
 		});
@@ -47,10 +47,13 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 	$scope.fetchList();
 
 	$scope.addPerson = function() {
+		$scope.message = 'Sending data to server...';
+
 		var obj = {
 			name: $scope.name,
 			occupation: $scope.occupation,
 			company: $scope.company,
+			location: $scope.location,
 			twitter: $scope.twitter,
 			//photo: $scope.photo,
 			photoBlob: $scope.photoBlob
@@ -59,12 +62,12 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		console.log(obj);
 
 		//$scope.addPersonComplete(obj);
-		//console.log('nope');
 		//return;
 
 		$http({
 			method: 'POST',
 			url: 'http://192.168.88.203:3000/trombine/new',
+			//url: 'http://127.0.0.1:3000/trombine/new',
 			//headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			data: obj
 		})
@@ -74,7 +77,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		})
 		.error(function(data, status) {
 			console.log('post error');
-			alert('Error: ' + status + ' ' + data);
+			$scope.message = 'Error: ' + status + ' ' + data;
 		});
 	};
 
@@ -86,10 +89,13 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		$scope.name = '';
 		$scope.occupation = '';
 		$scope.company = '';
+		$scope.location = '';
 		$scope.twitter = '';
 		//$scope.photo = '';
 		$scope.photoBlob = '';
 		//$scope.$setPristine();
+
+		$scope.message = 'Person added!';
 	};
 
 	$scope.pickPhoto = function () {
@@ -120,7 +126,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			//img.src = $scope.photo;
 			img.src = window.URL.createObjectURL(this.result.blob);
 			img.onload = function() {
-				var resized = resizeMe(img);
+				var resized = resizeMe(this);
 				//console.log(resized);
 				$scope.photoBlob = resized;
 				$scope.$apply();
@@ -165,7 +171,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 				//document.body.appendChild(img);
 				img.onload = function() {
 					console.log('    img has loaded');
-					var resized = resizeMe(img);
+					var resized = resizeMe(this);
 					$scope.photoBlob = resized;
 					$scope.$apply();
 				}

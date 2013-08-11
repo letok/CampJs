@@ -13,6 +13,14 @@ form {
     margin: 15px 0;
 }
 
+input {
+    padding: 10px;
+}
+
+#message {
+    color: blue;
+}
+
 .people-list {
     list-style: none;
     margin: 0;
@@ -20,21 +28,27 @@ form {
 }
 .people-list > li {
     float: left;
-    width: 45%;
-    max-width: 240px;
-    margin: 0 5% 5% 0;
-    background: #dddde2;
+    width: 48%;
+    max-width: 200px;
+    height: 300px;
+    overflow: auto;
+    margin: 0 2% 2% 0;
+    box-shadow: 0 2px 5px rgba(34, 25, 25, 0.4);
 }
 .people-list ul {
     list-style: none;
     margin: 0;
-    padding: 0 5px 5px;
+    padding: 0 10px 10px;
     font-size: 0.8rem;
 }
 .people-list h3 {
-    padding: 5px 5px 0;
+    padding: 10px 10px 0;
 }
 .people-list img {
 	max-height: 200px;
     width: 100%;
+}
+
+.addme {
+    background-color: lime;
 }
