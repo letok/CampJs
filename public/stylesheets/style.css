@@ -72,3 +72,6 @@ a {
 .tile ul li.twitter {
   background: url(../images/twitter-circle-24.png) no-repeat;
 }
+.tile ul li.github {
+  background: url(../images/github_circle_black-24.png) no-repeat;
+}

@@ -36,6 +36,16 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			console.log('... done');
 			$scope.people = data;
 			$scope.message = undefined;
+
+			var container = document.querySelector('.tiles');
+			var activateMasonry = function() {
+				var msnry = new Masonry( container, {
+				  itemSelector: '.tile'
+				});
+			};
+			requestAnimationFrame(function() {
+				requestAnimationFrame(activateMasonry);
+			});
 		})
 		.error(function(data, status) {
 			console.log('... error');

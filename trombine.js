@@ -35,7 +35,7 @@ Trombine.prototype.remove = function(callback) {
     this.getCollection(function(error, trombine_collection) {
       if( error ) callback(error)
       else {
-        trombine_collection.remove({name: 'Mr Poop'});
+        trombine_collection.remove({name: 'gaily and guilly'});
       }
     });  
 };

@@ -8,6 +8,7 @@
 
 		<script src="angular.min.js"></script>
 		<script src="people.js"></script>
+		<script src="javascripts/masonry.pkgd.min.js"></script>
 	</head>
 	<body>
 		<h1>People</h1>
@@ -25,15 +26,17 @@
 				<input type="text" ng-model="twitter" placeholder="Twitter name">
 				<input type="submit" value="Add">
 			</form>
-
-			<ul class="people-list">
-				<li ng-repeat="person in people">
-					<div><img src="{{person.photoBlob}}" alt="Photo"></div>
-					<h3>{{person.name}}</h3>
+			
+			<ul class="people-list tiles js-masonry" data-masonry-options='{ "itemSelector": ".tile" }'>
+				<li class="tile" ng-repeat="person in people">
 					<ul>
-						<li>Occupation: {{person.occupation}}</li>
-						<li>Company: {{person.company}}</li>
-						<li>Twitter: {{person.twitter}}</li>
+						<li class="photo"><img src="{{person.photoBlob}}" alt="Photo"></li>
+						<li class="name">{{person.name}}</li>
+						<li class="location">{{person.location}}</li>
+						<li class="occupation">{{person.occupation}}</li>
+						<li class="company">{{person.company}}</li>
+						<li class="twitter">{{person.twitter}}</li>
+						<li class="github">{{person.github}}</li>
 					</ul>
 				</li>
 			</ul>

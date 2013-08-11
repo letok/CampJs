@@ -7,6 +7,7 @@ var express = require('express')
   , routes = require('./routes')
   , user = require('./routes/user')
   , http = require('http')
+  , fs = require('fs')
   , path = require('path')
   , Trombine = require('./trombine').Trombine;
 
@@ -35,17 +36,21 @@ var trombine= new Trombine('localhost', 27017);
 
 // Routes
 app.get('/', function(req, res){
+	res.sendfile(__dirname + '/public/index.html');
 /*
   trombine.remove(function(error){
   	res.render('error');
   });
 */
+/*
   trombine.findAll(function(error, trombines){
       res.render('index', {
             title: 'Trombinoscope',
             trombines: trombines
         });
   });
+  */
+ 
 });
 
 app.post('/trombine/new', function(req, res){
