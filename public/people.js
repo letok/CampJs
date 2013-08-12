@@ -66,6 +66,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		})
 		.success(function(data, status) {
 			$scope.addPersonComplete(obj);
+			$scope.message = undefined;
 		})
 		.error(function(data, status) {
 			$scope.message = 'Error: ' + status + ' ' + data;
@@ -82,6 +83,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		$scope.company = '';
 		$scope.location = '';
 		$scope.twitter = '';
+		$scope.github = '';
 		$scope.photoBlob = '';
 
 		// that's the easy way, not very optimal but does the job. Would be better to just create the new tile element
