@@ -23,7 +23,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 
 		$http({
 			method: 'GET',
-			url: 'http://192.168.88.203:3000/trombine/list'
+			url: 'trombine/list'
 		})
 		.success(function(data, status) {
 			$scope.people = data;
@@ -57,7 +57,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 
 		$http({
 			method: 'POST',
-			url: 'http://192.168.88.203:3000/trombine/new',
+			url: 'trombine/new',
 			data: obj
 		})
 		.success(function(data, status) {
