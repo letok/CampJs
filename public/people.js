@@ -2,17 +2,13 @@
 var tromb = angular.module('tromb', []);
 
 tromb.controller('PeopleCtrl', function($scope, $http) {
-	//$http.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded";
 
 	$scope.features = {
 		mozActivity: false,
 		fileApi: false
 	};
 
-	$scope.people = [
-		//{ name: 'Bob', occupation: 'Web dev', company: 'Comp1', twitter: 'Bob111', photo: "blob:b21ed2f5-e600-414a-91c1-53f68169f031" },
-		//{ name: 'John', occupation: 'Web dev', company: 'Comp2', twitter: 'JohnXXX', photo: "blob:eb1b20d8-c2fa-2e46-9e50-7f143bb362c6" }
-	];
+	$scope.people = [];
 
 	// Check feature support
 	if (typeof MozActivity !== 'undefined') {
@@ -22,10 +18,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		$scope.features.fileApi = true;
 	}
 
-
-
 	$scope.fetchList = function() {
-		console.log('fetchList...');
 		$scope.message = 'Fetching list of people...';
 
 		$http({
@@ -33,7 +26,6 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			url: 'http://192.168.88.203:3000/trombine/list'
 		})
 		.success(function(data, status) {
-			console.log('... done');
 			$scope.people = data;
 			$scope.message = undefined;
 
@@ -48,9 +40,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			});
 		})
 		.error(function(data, status) {
-			console.log('... error');
 			$scope.message = 'Error: ' + status + ' ' + data;
-			//$scope.$apply();
 		});
 	};
 
@@ -62,28 +52,18 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			occupation: $scope.occupation,
 			company: $scope.company,
 			twitter: $scope.twitter,
-			//photo: $scope.photo,
 			photoBlob: $scope.photoBlob
 		};
-
-		console.log(obj);
-
-		//$scope.addPersonComplete(obj);
-		//console.log('nope');
-		//return;
 
 		$http({
 			method: 'POST',
 			url: 'http://192.168.88.203:3000/trombine/new',
-			//headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 			data: obj
 		})
 		.success(function(data, status) {
-			console.log('post success');
 			$scope.addPersonComplete(obj);
 		})
 		.error(function(data, status) {
-			console.log('post error');
 			alert('Error: ' + status + ' ' + data);
 		});
 	};
@@ -97,9 +77,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		$scope.occupation = '';
 		$scope.company = '';
 		$scope.twitter = '';
-		//$scope.photo = '';
 		$scope.photoBlob = '';
-		//$scope.$setPristine();
 	};
 
 	$scope.pickPhoto = function () {
@@ -112,52 +90,28 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			name: "pick",
 			data: {
 				type: ["image/png", "image/jpg", "image/jpeg"]
-			 }
+			}
 		});
 
-		pick.onsuccess = function () { 
-			console.log('onsuccess');
-
-			//var img = document.createElement("img");
-			//img.src = window.URL.createObjectURL(this.result.blob);
-			//var imagePresenter = document.querySelector("body");
-			//imagePresenter.appendChild(img);
-
-			//console.log($scope.people[0].name);
-			//$scope.photo = window.URL.createObjectURL(this.result.blob);
+		pick.onsuccess = function () {
 
 			var img = new Image();
-			//img.src = $scope.photo;
 			img.src = window.URL.createObjectURL(this.result.blob);
 			img.onload = function() {
 				var resized = resizeMe(img);
-				//console.log(resized);
 				$scope.photoBlob = resized;
 				$scope.$apply();
 			};
 
-			//var reader = new FileReader();
-			//reader.readAsDataURL(this.result.blob);
-			//reader.onload = function(event) {
-				//console.log(event.target.result);
-				//$scope.photoBlob = event.target.result;
-			//	$scope.$apply();
-			//};
-			//console.log(window.btoa(this.result.blob));
-
-			//$scope.photoBlob = window.btoa(this.result.blob);
-			//$scope.name = 'Ok';
-			//$scope.$apply();
 		};
 
-		pick.onerror = function () { 
+		pick.onerror = function () {
 			alert("Can't view the image!");
 		};
 	};
 
 	$scope.fileChanged = function(evt) {
-		console.log('fileChanged... ');
-		//console.log(evt);
+
 		if (evt.files.length == 0) {
 			alert('No file was selected?');
 			return;
@@ -169,12 +123,8 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 
 		for (var i = 0, f; f = evt.files[i]; i++) {
 			if ((/image/i).test(f.type)) {
-				console.log('    ' + i + ' ' + f.type);
 				var img = new Image();
-				//img = document.createElement("img");
-				//document.body.appendChild(img);
 				img.onload = function() {
-					console.log('    img has loaded');
 					var resized = resizeMe(img);
 					$scope.photoBlob = resized;
 					$scope.$apply();
@@ -183,12 +133,10 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 				var reader = new FileReader();
 				reader.onload = (function(theFile) {
 					return function(e) {
-						console.log('    reader done');
 						theFile.src = e.target.result;
 					};
 				})(img);
 				reader.readAsDataURL(f);
-				//reader.readAsBinaryString(f);
 			}
 		}
 	};
@@ -198,7 +146,6 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 
 
 function resizeMe(img) {
-	console.log('resizeMe!');
 
 	var canvas = document.createElement('canvas');
 
@@ -210,13 +157,11 @@ function resizeMe(img) {
 	// calculate the width and height, constraining the proportions
 	if (width > height) {
 		if (width > max_width) {
-			//height *= max_width / width;
 			height = Math.round(height *= max_width / width);
 			width = max_width;
 		}
 	} else {
 		if (height > max_height) {
-			//width *= max_height / height;
 			width = Math.round(width *= max_height / height);
 			height = max_height;
 		}
