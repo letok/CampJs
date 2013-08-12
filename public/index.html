@@ -11,20 +11,23 @@
 		<script src="javascripts/masonry.pkgd.min.js"></script>
 	</head>
 	<body>
-		<h1>People</h1>
-		<div id="message">Message: {{ message }}</div>
-
+		<h1>CampJs peeps!</h1>
+		<p>Hey, campers - we are making a list of everyone here so you can see who is who and follow them maybe.</p>
 		<div id="people" ng-controller="PeopleCtrl">
-			<form ng-submit="addPerson()">
-				<!-- Show or hide native picker or file uploader -->
-				<input type="button" ng-click="pickPhoto()" ng-show="features.mozActivity" value="Pick photo">
-				<input type="file" ng-show="features.fileApi" onchange="angular.element(this).scope().fileChanged(this)">
+			<div id="message">{{ message }}</div>
 
+			<form ng-submit="addPerson()">
 				<input type="text" ng-model="name" placeholder="Name">
 				<input type="text" ng-model="occupation" placeholder="Occupation">
 				<input type="text" ng-model="company" placeholder="Company">
+				<input type="text" ng-model="location" placeholder="Location/City">
 				<input type="text" ng-model="twitter" placeholder="Twitter name">
-				<input type="submit" value="Add">
+
+				<!-- Show or hide native picker or file uploader -->
+				<label>Photo:</label>
+				<input type="button" ng-click="pickPhoto()" ng-show="features.mozActivity" value="Pick photo">
+				<input type="file" ng-show="features.fileApi" onchange="angular.element(this).scope().fileChanged(this)">
+				<input class="addme" type="submit" value="Add me!">
 			</form>
 			
 			<ul class="people-list tiles">

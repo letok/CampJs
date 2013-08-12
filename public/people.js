@@ -19,11 +19,12 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 	}
 
 	$scope.fetchList = function() {
-		$scope.message = 'Fetching list of people...';
+		$scope.message = 'Fetching list of people from server (may need to refresh if network is too flaky)...';
 
 		$http({
 			method: 'GET',
 			url: 'trombine/list'
+			//url: 'http://127.0.0.1:3000/trombine/list'
 		})
 		.success(function(data, status) {
 			$scope.people = data;
@@ -47,10 +48,13 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 	$scope.fetchList();
 
 	$scope.addPerson = function() {
+		$scope.message = 'Sending data to server...';
+
 		var obj = {
 			name: $scope.name,
 			occupation: $scope.occupation,
 			company: $scope.company,
+			location: $scope.location,
 			twitter: $scope.twitter,
 			photoBlob: $scope.photoBlob
 		};
@@ -58,13 +62,14 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		$http({
 			method: 'POST',
 			url: 'trombine/new',
+			//url: 'http://127.0.0.1:3000/trombine/new',
 			data: obj
 		})
 		.success(function(data, status) {
 			$scope.addPersonComplete(obj);
 		})
 		.error(function(data, status) {
-			alert('Error: ' + status + ' ' + data);
+			$scope.message = 'Error: ' + status + ' ' + data;
 		});
 	};
 
@@ -76,6 +81,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		$scope.name = '';
 		$scope.occupation = '';
 		$scope.company = '';
+		$scope.location = '';
 		$scope.twitter = '';
 		$scope.photoBlob = '';
 
@@ -102,7 +108,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			var img = new Image();
 			img.src = window.URL.createObjectURL(this.result.blob);
 			img.onload = function() {
-				var resized = resizeMe(img);
+				var resized = resizeMe(this);
 				$scope.photoBlob = resized;
 				$scope.$apply();
 			};
@@ -129,7 +135,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			if ((/image/i).test(f.type)) {
 				var img = new Image();
 				img.onload = function() {
-					var resized = resizeMe(img);
+					var resized = resizeMe(this);
 					$scope.photoBlob = resized;
 					$scope.$apply();
 				}
