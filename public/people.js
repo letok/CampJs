@@ -156,7 +156,7 @@ function resizeMe(img) {
 	var width = img.width;
 	var height = img.height;
 	var max_width = 200;
-	var max_height = 200;
+	var max_height = 400;
 
 	// calculate the width and height, constraining the proportions
 	if (width > height) {
