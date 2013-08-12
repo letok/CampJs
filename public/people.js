@@ -19,7 +19,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 	}
 
 	$scope.fetchList = function() {
-		$scope.message = 'Fetching list of people from server (may need to refresh if network is too flaky)...';
+		$scope.message = 'Fetching list of people from server...';
 
 		$http({
 			method: 'GET',
@@ -40,7 +40,10 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			});
 		})
 		.error(function(data, status) {
-			$scope.message = 'Error: ' + status + ' ' + data;
+			if (data)
+				$scope.message = 'Error: ' + status + ' ' + data;
+			else
+				$scope.message = 'Failed to fetch list of people :-(';
 		});
 	};
 
@@ -105,7 +108,6 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		});
 
 		pick.onsuccess = function () {
-
 			var img = new Image();
 			img.src = window.URL.createObjectURL(this.result.blob);
 			img.onload = function() {

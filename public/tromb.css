@@ -10,19 +10,26 @@ body {
 }
 
 form {
-    margin: 15px 0;
+    margin: 0;
+    padding: 0;
+}
+
+form .addme {
+    background: rgb(131, 235, 131);
+    padding: 10px;
 }
 
 a {
   color: #00B7FF;
 }
 
-.tiles{
+.tiles {
     padding: 0;
     margin-left: -15px;
     margin-bottom: -30px;
+    clear: both;
 }
-.tile{
+.tile {
     background: #FEFEFE;
     box-shadow: 0 2px 5px rgba(34, 25, 25, 0.4);
     background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
@@ -58,7 +65,11 @@ a {
 
 .tile ul li.photo { padding-left: 0; text-align: center; }
 .tile ul li.photo img{ max-width: 100%; }
-.tile ul li.name { background: url(../images/User-24.png) no-repeat }
+.tile ul li.name {
+    background: url(../images/User-24.png) no-repeat;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
 .tile ul li.location { background: url(../images/Map-24.png) no-repeat }
 .tile ul li.occupation { background: url(../images/ruler_pencil-24.png) no-repeat }
 .tile ul li.company { background: url(../images/friends-24.png) no-repeat }
