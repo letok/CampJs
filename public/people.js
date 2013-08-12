@@ -78,6 +78,10 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		$scope.company = '';
 		$scope.twitter = '';
 		$scope.photoBlob = '';
+
+		// that's the easy way, not very optimal but does the job. Would be better to just create the new tile element
+		// and insert it in the right spot (respect alphabetical sorting) in the DOM instead with the nice fadeIn or else
+		$scope.fetchList();
 	};
 
 	$scope.pickPhoto = function () {
