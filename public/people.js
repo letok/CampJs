@@ -24,16 +24,15 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		$http({
 			method: 'GET',
 			url: 'trombine/list'
-			//url: 'http://127.0.0.1:3000/trombine/list'
 		})
 		.success(function(data, status) {
 			$scope.people = data;
 			$scope.message = undefined;
 
-			var container = document.querySelector('.tiles');
+			var container = document.querySelector('.tiles'); // should use Angular directive
 			var activateMasonry = function() {
 				var msnry = new Masonry( container, {
-				  itemSelector: '.tile'
+				  itemSelector: '.tile' // should use Angular directive
 				});
 			};
 			requestAnimationFrame(function() {
@@ -56,13 +55,13 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			company: $scope.company,
 			location: $scope.location,
 			twitter: $scope.twitter,
+			github: $scope.github,
 			photoBlob: $scope.photoBlob
 		};
 
 		$http({
 			method: 'POST',
 			url: 'trombine/new',
-			//url: 'http://127.0.0.1:3000/trombine/new',
 			data: obj
 		})
 		.success(function(data, status) {
