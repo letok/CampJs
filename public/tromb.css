@@ -14,11 +14,6 @@ form {
     padding: 0;
 }
 
-form .addme {
-    background: rgb(131, 235, 131);
-    padding: 10px;
-}
-
 a {
   color: #00B7FF;
 }
@@ -54,17 +49,18 @@ a {
 }
 
 .tile ul li {
-    font: 12px/18px Arial, sans-serif;
+    list-style: none;
+    font-size: 12px;
+    line-height: 1.2;
     color: #333;
     margin: 0;
-    list-style: none;
-    padding-left: 30px;
     margin-bottom: 5px;
-    line-height: 24px;
+    padding: 5px 0 5px 30px;
 }
 
 .tile ul li.photo { padding-left: 0; text-align: center; }
-.tile ul li.photo img{ max-width: 100%; }
+.tile ul li.photo img { max-width: 100%; }
+.tile .photo img:hover { cursor: pointer; }
 .tile ul li.name {
     background: url(../images/User-24.png) no-repeat;
     font-weight: bold;
@@ -75,3 +71,21 @@ a {
 .tile ul li.company { background: url(../images/friends-24.png) no-repeat }
 .tile ul li.twitter { background: url(../images/twitter-circle-24.png) no-repeat }
 .tile ul li.github { background: url(../images/github_circle_black-24.png) no-repeat }
+
+form .addme {
+    background: rgb(131, 235, 131);
+    padding: 10px;
+    float: right;
+}
+.tile form li {
+    padding: 0 0 0 30px;
+}
+.tile form input[type='text'] {
+    width: 90%;
+    padding: 2px 4px;
+}
+#filepicker {
+    visibility: hidden;
+    height: 1px;
+    width: 1px;
+}

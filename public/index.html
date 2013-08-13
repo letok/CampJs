@@ -20,31 +20,33 @@
 				<li class="tile">
 					<form ng-submit="addPerson()">
 						<ul>
-							<li class="photo"><img src="http://placehold.it/200x200&text=Choose+photo..." alt="Photo"></li>
-							<li class="name"><input type="text" ng-model="name" placeholder="Name" required></li>
-							<li class="location"><input type="text" ng-model="location" placeholder="Location/City"></li>
-							<li class="occupation"><input type="text" ng-model="occupation" placeholder="Occupation"></li>
-							<li class="company"><input type="text" ng-model="company" placeholder="Company"></li>
-							<li class="twitter"><input type="text" ng-model="twitter" placeholder="Twitter name"></li>
-							<li class="github"><input type="text" ng-model="github" placeholder="Github account"></li>
+							<li class="photo"><img 
+								ng-src="{{person.photoBlob || 'http://placehold.it/200x200&text=Choose+photo...'}}" 
+								onclick="document.getElementById('filepicker').click()" 
+								alt="Photo"></li>
+							<li class="name"><input type="text" ng-model="person.name" placeholder="Name" required></li>
+							<li class="location"><input type="text" ng-model="person.location" placeholder="Location/City"></li>
+							<li class="occupation"><input type="text" ng-model="person.occupation" placeholder="Occupation"></li>
+							<li class="company"><input type="text" ng-model="person.company" placeholder="Company"></li>
+							<li class="twitter"><input type="text" ng-model="person.twitter" placeholder="Twitter name"></li>
+							<li class="github"><input type="text" ng-model="person.github" placeholder="Github account"></li>
 
 							<!-- Show or hide native picker or file uploader -->
-							<label>Photo:</label>
 							<input type="button" ng-click="pickPhoto()" ng-show="features.mozActivity" value="Pick photo">
-							<input type="file" ng-show="features.fileApi" onchange="angular.element(this).scope().fileChanged(this)">
+							<input type="file" id="filepicker" ng-show="features.fileApi" onchange="angular.element(this).scope().pickPhoto(this)">
 							<input class="addme" type="submit" value="Add me!">
 						</ul>
 					</form>
 				</li>
 				<li class="tile" ng-repeat="person in people | orderBy:'name'">
 					<ul>
-						<li class="photo"><img ng-src="{{person.photoBlob || 'http://placehold.it/200x200&text=:-)'}}" alt="Photo"></li>
+						<li class="photo"><img ng-src="{{person.photoBlob || 'http://placehold.it/200x200&text=^_^;'}}" alt="Photo"></li>
 						<li class="name">{{person.name || '???'}}</li>
 						<li class="location" ng-show="person.location">{{person.location}}</li>
 						<li class="occupation" ng-show="person.occupation">{{person.occupation}}</li>
-						<li class="company" ng=show="person.company">{{person.company}}</li>
+						<li class="company" ng-show="person.company">{{person.company}}</li>
 						<li class="twitter" ng-show="person.twitter"><a href="http://www.twitter.com/{{person.twitter}}">{{person.twitter}}</a></li>
-						<li class="github" ng-show"person.github"><a href="http://www.github.com/{{person.github}}">{{person.github}}</a></li>
+						<li class="github" ng-show="person.github"><a href="http://www.github.com/{{person.github}}">{{person.github}}</a></li>
 					</ul>
 				</li>
 			</ul>

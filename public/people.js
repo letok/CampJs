@@ -8,10 +8,16 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		fileApi: false
 	};
 
-	$scope.people = [];
+	$scope.people = []; //Array of people
+	$scope.person = {}; //Store form data
 
+	//
 	// Check feature support
-	if (typeof MozActivity !== 'undefined') {
+	//
+	if (!window.CanvasRenderingContext2D) {
+		//catch if HTML5 canvas 2D not supported
+	}
+	else if (typeof MozActivity !== 'undefined') {
 		$scope.features.mozActivity = true;
 	}
 	else if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -52,15 +58,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 	$scope.addPerson = function() {
 		$scope.message = 'Sending data to server...';
 
-		var obj = {
-			name: $scope.name,
-			occupation: $scope.occupation,
-			company: $scope.company,
-			location: $scope.location,
-			twitter: $scope.twitter,
-			github: $scope.github,
-			photoBlob: $scope.photoBlob
-		};
+		var obj = $scope.person;
 
 		$http({
 			method: 'POST',
@@ -78,79 +76,77 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 
 	$scope.addPersonComplete = function(obj) {
 		// Add person to people collection
-		$scope.people.unshift(obj);
+		$scope.people.push(obj);
 
 		//Clear form
-		$scope.name = '';
-		$scope.occupation = '';
-		$scope.company = '';
-		$scope.location = '';
-		$scope.twitter = '';
-		$scope.github = '';
-		$scope.photoBlob = '';
+		$scope.person = {};
 
 		// that's the easy way, not very optimal but does the job. Would be better to just create the new tile element
 		// and insert it in the right spot (respect alphabetical sorting) in the DOM instead with the nice fadeIn or else
 		$scope.fetchList();
 	};
 
-	$scope.pickPhoto = function () {
-		if (typeof MozActivity === 'undefined') {
-			alert('Not implemented...');
-			return;
-		}
+	$scope.pickPhoto = function (evt) {
+		//
+		// FirefoxOS
+		//
+		if ($scope.features.mozActivity) {
+			var pick = new MozActivity({
+				name: 'pick',
+				data: {
+					type: ['image/png', 'image/jpg', 'image/jpeg']
+				}
+			});
 
-		var pick = new MozActivity({
-			name: "pick",
-			data: {
-				type: ["image/png", "image/jpg", "image/jpeg"]
-			}
-		});
-
-		pick.onsuccess = function () {
-			var img = new Image();
-			img.src = window.URL.createObjectURL(this.result.blob);
-			img.onload = function() {
-				var resized = resizeMe(this);
-				$scope.photoBlob = resized;
-				$scope.$apply();
-			};
-
-		};
-
-		pick.onerror = function () {
-			alert("Can't view the image!");
-		};
-	};
-
-	$scope.fileChanged = function(evt) {
-
-		if (evt.files.length == 0) {
-			alert('No file was selected?');
-			return;
-		}
-		else if (evt.files.length > 1) {
-			alert('Please only select one file.');
-			return;
-		}
-
-		for (var i = 0, f; f = evt.files[i]; i++) {
-			if ((/image/i).test(f.type)) {
+			pick.onsuccess = function () {
 				var img = new Image();
+				img.src = window.URL.createObjectURL(this.result.blob);
 				img.onload = function() {
 					var resized = resizeMe(this);
-					$scope.photoBlob = resized;
+					$scope.person.photoBlob = resized;
 					$scope.$apply();
-				}
+				};
 
-				var reader = new FileReader();
-				reader.onload = (function(theFile) {
-					return function(e) {
-						theFile.src = e.target.result;
-					};
-				})(img);
-				reader.readAsDataURL(f);
+			};
+
+			pick.onerror = function () {
+				alert('Problem using the image, or no image was selected.');
+			};
+		}
+		//
+		// HTML5 FileAPI
+		//
+		else if ($scope.features.fileApi) {
+			if (evt.files.length == 0) {
+				alert('No file was selected?');
+				return;
 			}
+			else if (evt.files.length > 1) {
+				alert('Please only select one file.');
+				return;
+			}
+
+			for (var i = 0, f; f = evt.files[i]; i++) {
+				if ((/image/i).test(f.type)) {
+					var img = new Image();
+					img.onload = function() {
+						var resized = resizeMe(this);
+						$scope.person.photoBlob = resized;
+						$scope.$apply();
+					}
+
+					var reader = new FileReader();
+					reader.onload = (function(theFile) {
+						return function(e) {
+							theFile.src = e.target.result;
+						};
+					})(img);
+					reader.readAsDataURL(f);
+				}
+			}
+		}
+		else {
+			alert('Your browser isn\'t supported.');
 		}
 	};
 });
