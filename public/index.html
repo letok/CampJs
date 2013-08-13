@@ -21,7 +21,7 @@
 					<form ng-submit="addPerson()">
 						<ul>
 							<li class="photo"><img src="http://placehold.it/200x200&text=Choose+photo..." alt="Photo"></li>
-							<li class="name"><input type="text" ng-model="name" placeholder="Name"></li>
+							<li class="name"><input type="text" ng-model="name" placeholder="Name" required></li>
 							<li class="location"><input type="text" ng-model="location" placeholder="Location/City"></li>
 							<li class="occupation"><input type="text" ng-model="occupation" placeholder="Occupation"></li>
 							<li class="company"><input type="text" ng-model="company" placeholder="Company"></li>
@@ -36,7 +36,7 @@
 						</ul>
 					</form>
 				</li>
-				<li class="tile" ng-repeat="person in people">
+				<li class="tile" ng-repeat="person in people | orderBy:'name'">
 					<ul>
 						<li class="photo"><img ng-src="{{person.photoBlob || 'http://placehold.it/200x200&text=:-)'}}" alt="Photo"></li>
 						<li class="name">{{person.name || '???'}}</li>
