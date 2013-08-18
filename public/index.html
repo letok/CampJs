@@ -22,7 +22,7 @@
 					<form ng-submit="addPerson()">
 						<ul>
 							<li class="photo"><img 
-								ng-src="{{person.photoBlob || 'http://placehold.it/200x200&text=Choose+photo...'}}" 
+								ng-src="{{person.photoBlob || 'images/choose_photo.png'}}" 
 								onclick="document.getElementById('filepicker').click()" 
 								alt="Photo"></li>
 							<li class="name"><input type="text" ng-model="person.name" placeholder="Name" required></li>
@@ -41,7 +41,7 @@
 				</li>
 				<li class="tile" ng-repeat="person in people | orderBy:'name'">
 					<ul>
-						<li class="photo"><img ng-src="{{person.photoBlob || 'http://placehold.it/200x200&text=^_^;'}}" alt="Photo"></li>
+						<li class="photo"><img ng-src="{{person.photoBlob || 'images/no_photo.png'}}" alt="Photo"></li>
 						<li class="name"><h3>{{person.name || 'Unknown'}}</h3></li>
 						<li class="location" ng-show="person.location">{{person.location}}</li>
 						<li class="occupation" ng-show="person.occupation">{{person.occupation}}</li>

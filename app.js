@@ -4,12 +4,12 @@
  */
 
 var express = require('express')
-  , routes = require('./routes')
-  , user = require('./routes/user')
-  , http = require('http')
-  , fs = require('fs')
-  , path = require('path')
-  , Trombine = require('./trombine').Trombine;
+	, routes = require('./routes')
+	, user = require('./routes/user')
+	, http = require('http')
+	, fs = require('fs')
+	, path = require('path')
+	, Trombine = require('./trombine').Trombine;
 
 var app = express();
 
@@ -29,53 +29,55 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
-  app.use(express.errorHandler());
+	app.use(express.errorHandler());
 }
-
-var trombine= new Trombine('localhost', 27017);
 
 // Routes
 app.get('/', function(req, res){
 	res.sendfile(__dirname + '/public/index.html');
 /*
-  trombine.remove(function(error){
-  	res.render('error');
-  });
+	trombine.remove(function(error){
+		res.render('error');
+	});
 */
 /*
-  trombine.findAll(function(error, trombines){
-      res.render('index', {
-            title: 'Trombinoscope',
-            trombines: trombines
-        });
-  });
-  */
- 
+	trombine.findAll(function(error, trombines){
+			res.render('index', {
+						title: 'Trombinoscope',
+						trombines: trombines
+				});
+	});
+	*/
 });
 
 app.post('/trombine/new', function(req, res){
-	res.setHeader("Access-Control-Allow-Origin", "*");
+	//res.setHeader("Access-Control-Allow-Origin", "*");
 
 	trombine.save(
-		req.body
-    , function( error, docs) {
-        res.send(200, 'OK');
-    });
+		req.body, function(err) {
+			if (err) throw err.message;
+
+			res.send(200, 'OK');
+		}
+	);
 });
 
 app.get('/trombine/list', function(req, res){
-	res.setHeader("Access-Control-Allow-Origin", "*");
+	//res.setHeader("Access-Control-Allow-Origin", "*");
 	trombine.findAll(function(error, trombines){
-      res.json(trombines);
-  });
+			res.json(trombines);
+	});
 });
 
-app.options('/*', function(req, res){
+/*app.options('/*', function(req, res){
 	res.setHeader("Access-Control-Allow-Origin", "*");
 	res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 	res.send(200, true);
-});
+});*/
+
+//Connect to database
+var trombine = new Trombine('localhost', 27017);
 
 http.createServer(app).listen(app.get('port'), function(){
-  console.log('Express server listening on port ' + app.get('port'));
+	console.log('Express server listening on port ' + app.get('port'));
 });

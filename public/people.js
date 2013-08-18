@@ -34,16 +34,6 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 		.success(function(data, status) {
 			$scope.people = data;
 			$scope.message = undefined;
-
-			/*var container = document.querySelector('.tiles'); // should use Angular directive
-			var activateMasonry = function() {
-				var msnry = new Masonry( container, {
-				  itemSelector: '.tile' // should use Angular directive
-				});
-			};
-			requestAnimationFrame(function() {
-				requestAnimationFrame(activateMasonry);
-			});*/
 		})
 		.error(function(data, status) {
 			if (data)
@@ -83,7 +73,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 
 		// that's the easy way, not very optimal but does the job. Would be better to just create the new tile element
 		// and insert it in the right spot (respect alphabetical sorting) in the DOM instead with the nice fadeIn or else
-		$scope.fetchList();
+		//$scope.fetchList();
 	};
 
 	$scope.pickPhoto = function (evt) {
