@@ -4,15 +4,16 @@
 		<title>CampJs trombinoscope</title>
 		<meta charset='utf-8'>
 
-		<link rel="stylesheet" type="text/css" href="tromb.css"> 
+		<link href='http://fonts.googleapis.com/css?family=PT+Sans+Narrow|Covered+By+Your+Grace' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="tromb.css">
 
 		<script src="angular.min.js"></script>
 		<script src="people.js"></script>
-		<script src="javascripts/masonry.pkgd.min.js"></script>
+		<!-- <script src="javascripts/masonry.pkgd.min.js"></script> -->
 	</head>
 	<body>
 		<h1>CampJs trombinoscope</h1>
-		<p>Hey, campers - add your contact details below so that people you've met can put a name on your face or your face on a name, or simply learn more about you and follow you on Twitter and Github :-)</p>
+		<p>Hey, campers! Add your details below so that people you've met can put a name to your face or your face to a name, or simply learn more about you and follow you on Twitter and Github :-)</p>
 		<div id="people" ng-controller="PeopleCtrl">
 			<div id="message">{{ message }}</div>
 
@@ -41,7 +42,7 @@
 				<li class="tile" ng-repeat="person in people | orderBy:'name'">
 					<ul>
 						<li class="photo"><img ng-src="{{person.photoBlob || 'http://placehold.it/200x200&text=^_^;'}}" alt="Photo"></li>
-						<li class="name">{{person.name || '???'}}</li>
+						<li class="name"><h3>{{person.name || 'Unknown'}}</h3></li>
 						<li class="location" ng-show="person.location">{{person.location}}</li>
 						<li class="occupation" ng-show="person.occupation">{{person.occupation}}</li>
 						<li class="company" ng-show="person.company">{{person.company}}</li>
@@ -50,6 +51,7 @@
 					</ul>
 				</li>
 			</ul>
+			<div style="clear:both"></div>
 		</div>
 
 	</body>

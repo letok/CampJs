@@ -1,91 +1,108 @@
-h1, h2, h3 {
-    margin: 0;
-    padding: 0;
-}
-
 body {
-    font-family: Helvetica, Arial, sans-serif;
-    margin: 0;
-    padding: 15px;
+	margin: 0;
+	padding: 5px 15px 50px;
+	font-family: 'PT Sans Narrow', sans-serif;
+	font-size: 18px;
+	line-height: 1.2;
+	color: #444;
 }
 
-form {
-    margin: 0;
-    padding: 0;
+h1, h2, h3 {
+	font-family: 'Covered By Your Grace', cursive;
+	line-height: 1;
+}
+h1 { font-size: 50px; }
+
+form, p, h1, h2, h3 {
+	margin: 0;
+	padding: 0;
 }
 
 a {
   color: #00B7FF;
 }
 
-.tiles {
-    padding: 0;
-    margin-left: -15px;
-    margin-bottom: -30px;
-    clear: both;
-}
-.tile {
-    background: #FEFEFE;
-    box-shadow: 0 2px 5px rgba(34, 25, 25, 0.4);
-    background: -webkit-linear-gradient(45deg, #FFF, #F9F9F9);
-    padding: 15px;
-    opacity: 1;
-    list-style: none;
-    -webkit-transition: opacity 1s ease;
-    -moz-transition: opacity 1s ease;
-    -o-transition: opacity 1s ease;
-    transition: opacity 1s ease;
-    width: 190px;
-    margin: 0 15px 30px; 
+#people {
+	margin-top: 40px;
 }
 
-.tile:hover {
-    opacity: 0.8;
+.tiles {
+	padding: 0;
+	margin-left: -15px;
+	margin-bottom: -30px;
+	clear: both;
+	position: relative;
+}
+.tile {
+	background: #FEFEFE;
+	box-shadow: 0 2px 5px rgba(25, 25, 70, 0.4);
+	background: -webkit-linear-gradient(60deg, #eee, #fff);
+	list-style: none;
+	padding: 15px;
+	width: 190px;
+	margin: 0 15px 30px;
+	float: left;
+	position: relative;
 }
 
 .tile ul {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
+	min-height: 300px;
+	max-height: 300px;
+	overflow: hidden;
 }
 
 .tile ul li {
-    list-style: none;
-    font-size: 12px;
-    line-height: 1.2;
-    color: #333;
-    margin: 0;
-    margin-bottom: 5px;
-    padding: 5px 0 5px 30px;
+	list-style: none;
+	margin: 0;
+	/*margin-bottom: 2px;*/
+	padding: 5px 0 5px 30px;
+	background-repeat: no-repeat;
+	background-size: 20px;
+	background-position: 0 3px;
 }
 
-.tile ul li.photo { padding-left: 0; text-align: center; }
+.tile ul li.photo {
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
 .tile ul li.photo img { max-width: 100%; }
 .tile .photo img:hover { cursor: pointer; }
 .tile ul li.name {
-    background: url(../images/User-24.png) no-repeat;
-    font-weight: bold;
-    font-size: 1.1rem;
+	padding-left: 0;
+	font-size: 1.5rem;
 }
-.tile ul li.location { background: url(../images/Map-24.png) no-repeat }
-.tile ul li.occupation { background: url(../images/ruler_pencil-24.png) no-repeat }
-.tile ul li.company { background: url(../images/friends-24.png) no-repeat }
-.tile ul li.twitter { background: url(../images/twitter-circle-24.png) no-repeat }
-.tile ul li.github { background: url(../images/github_circle_black-24.png) no-repeat }
+.tile ul li.location { background-image: url(../images/Map-24.png) }
+.tile ul li.occupation { background-image: url(../images/ruler_pencil-24.png) }
+.tile ul li.company { background-image: url(../images/friends-24.png) }
+.tile ul li.twitter { background-image: url(../images/twitter-circle-24.png) }
+.tile ul li.github { background-image: url(../images/github_circle_black-24.png) }
 
 form .addme {
-    background: rgb(131, 235, 131);
-    padding: 10px;
-    float: right;
+	/*background: rgb(131, 235, 131);
+	padding: 10px;*/
+	float: right;
 }
 .tile form li {
-    padding: 0 0 0 30px;
+	padding: 0 0 0 30px;
 }
 .tile form input[type='text'] {
-    width: 90%;
-    padding: 2px 4px;
+	width: 90%;
+	padding: 2px 4px;
 }
 #filepicker {
-    visibility: hidden;
-    height: 1px;
-    width: 1px;
+	visibility: hidden;
+	height: 1px;
+	width: 1px;
+}
+
+
+.tile:hover {
+}
+.tile:hover ul {
+	position: absolute;
+	z-index: 100;
+	max-height: 2000px;
 }

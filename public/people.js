@@ -35,7 +35,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			$scope.people = data;
 			$scope.message = undefined;
 
-			var container = document.querySelector('.tiles'); // should use Angular directive
+			/*var container = document.querySelector('.tiles'); // should use Angular directive
 			var activateMasonry = function() {
 				var msnry = new Masonry( container, {
 				  itemSelector: '.tile' // should use Angular directive
@@ -43,7 +43,7 @@ tromb.controller('PeopleCtrl', function($scope, $http) {
 			};
 			requestAnimationFrame(function() {
 				requestAnimationFrame(activateMasonry);
-			});
+			});*/
 		})
 		.error(function(data, status) {
 			if (data)
